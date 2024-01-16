@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Додайте для кнопки два обробники: один має спрацювати у фазі capturing, другий – у фазі bubbling.  -->
+</head>
+<body>
+
+    <button id="myButton">Click me!</button>
+        <script>
+           let myButton = document.getElementById('myButton');
+
+function capturingHandler() {
+    console.log('Capturing phase!');
+}
+
+function bubblingHandler() {
+    console.log('Bubbling phase!');
+}
+
+// Додаємо обробник для capturing phase
+myButton.addEventListener('click', capturingHandler, true);
+
+// Додаємо обробник для bubbling phase
+myButton.addEventListener('click', bubblingHandler, false);  
+        </script>
+
+    
+    </html> 
+</body>
+</html>
