@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Операнд 1: <input id="input1" type="text"> <br />
+    Операнд 2: <input id="input2" type="text"> <br />
+
+    <button id="add-btn">+</button>
+    <button id="rem-btn">-</button>
+    <button id="mul-btn">*</button>
+    <button id="div-btn">/</button>
+
+    <script>
+        /*
+        Завдання:
+        Перепишіть сценарій так, щоб у коді був лише один обробник на подію click (замість чотирьох обробників).
+        Результат роботи сценарію не має змінюватись.
+        */
+        let input1 = document.querySelector("#input1");
+        let input2 = document.querySelector("#input2");
+
+        document.body.addEventListener("click", function (event) {
+            if (event.target.tagName === "BUTTON") {
+                let operator = event.target.textContent;
+                let result;
+                
+                switch (operator) {
+                    case '+':
+                        result = Number(input1.value) + Number(input2.value);
+                        break;
+                    case '-':
+                        result = input1.value - input2.value;
+                        break;
+                    case '*':
+                        result = input1.value * input2.value;
+                        break;
+                    case '/':
+                        result = input1.value / input2.value;
+                        break;
+                    default:
+                        result = "Invalid operator";
+                }
+
+                alert(result);
+            }
+        }); 
+    </script> 
+</body>
+</html>

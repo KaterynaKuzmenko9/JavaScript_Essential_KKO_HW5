@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    #generateButton {
+        height: 5vh;
+        background-color: green;
+        color: white;
+        cursor: pointer;
+        text-align: center;
+        font-size: 24px;
+
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+    }
+
+    #interactivePanel {
+        position: relative;
+        height: 95vh;
+    }
+
+    .interactiveElement {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+    }
+</style>
+<body>
+    <div id="generateButton">Generate</div>
+    <div id="interactivePanel"></div>
+    <script>
+        // Створює та повертає div з класом interactiveElement з випадковою позицією у поточному вікні.
+        function generateElement() {
+            let div = document.createElement("div");
+            div.classList.add("interactiveElement");
+            let maxLeft = window.innerWidth - 50; // Ширина поточного документа.
+            let maxTop = window.innerHeight - 150; // Висота поточного документа.
+            div.style.top = getRandomValue(maxTop) + "px";
+            div.style.left = getRandomValue(maxLeft) + "px";
+            div.style.backgroundColor = getRandomColor();
+            
+    
+        // Додаємо слухача подій для перетягування елемента.
+        div.addEventListener("mousedown", function(event) {
+                let shiftX = event.clientX - div.getBoundingClientRect().left;
+                let shiftY = event.clientY - div.getBoundingClientRect().top;
+
+                function moveAt(pageX, pageY) {
+                    div.style.left = pageX - shiftX + 'px';
+                    div.style.top = pageY - shiftY + 'px';
+                }
+
+                function onMouseMove(event) {
+                    moveAt(event.pageX, event.pageY);
+                }
+             // Прикріплюємо події до об'єкта документу, а не до самого div.
+             document.addEventListener("mousemove", onMouseMove);
+
+div.onmouseup = function() {
+    document.removeEventListener("mousemove", onMouseMove);
+    div.onmouseup = null;
+};
+});
+
+return div;
+}
+
+
+        // Повертає випадкове значення від 0 до max.
+        function getRandomValue(max) {
+            return Math.floor(Math.random() * max);
+        }
+
+        // Функція для створення 100 елементів при натисканні на кнопку "Generate".
+        function generateElements() {
+            let interactivePanel = document.getElementById("interactivePanel");
+
+            // Очищення попередніх елементів.
+            interactivePanel.innerHTML = "";
+
+            for (let i = 0; i < 100; i++) {
+                interactivePanel.appendChild(generateElement());
+            }
+        }
+
+       
+    </script>
+    
+</body>
+</html>
